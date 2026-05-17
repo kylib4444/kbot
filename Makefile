@@ -94,6 +94,8 @@ image:
 
 # Push Docker image
 push:
+	@echo "DEBUG: Registry is $(REGISTRY)"
+	@echo "DEBUG: Image name is $(IMAGE)"
 	@echo "Pushing Docker image..."
 	 docker push $(IMAGE)
 
