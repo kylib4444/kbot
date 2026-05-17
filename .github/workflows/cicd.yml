@@ -24,7 +24,10 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-
+      
+      - name: Debug Variables
+        run: echo "Registry is ${{ env.REGISTRY }} and Owner is ${{ github.repository_owner }}"
+        
       - name: Run test
         run: make test
 
