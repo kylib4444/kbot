@@ -1,3 +1,4 @@
+# Makefile for kbot project
 REGISTRY ?= ghcr.io
 USERNAME ?= kylib4444
 # Application name and registry configuration
