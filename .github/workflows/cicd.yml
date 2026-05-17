@@ -27,7 +27,7 @@ jobs:
       
       - name: Debug Variables
         run: echo "Registry is ${{ env.REGISTRY }} and Owner is ${{ github.repository_owner }}"
-        
+
       - name: Run test
         run: make test
 
@@ -39,9 +39,4 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build & Push
-        run: |
-          make image push \
-            REGISTRY=ghcr.io \
-            USERNAME=${{ github.repository_owner }} \
-            TARGETOS=linux \
-            TARGETARCH=amd64
+        run: make image push
