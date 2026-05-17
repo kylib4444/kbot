@@ -8,7 +8,7 @@ VERSION := $(shell git describe --tags --abbrev=0 2>/dev/null || echo "v1.0.0")-
 
 # Build configuration
 TARGETOS ?= linux
-TARGETARCH ?= arm64
+TARGETARCH ?= amd64
 CGO_ENABLED ?= 0
 
 # Full image tag
