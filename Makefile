@@ -1,8 +1,8 @@
 REGISTRY ?= ghcr.io
 USERNAME ?= kylib4444
-VERSION := $(shell git describe --tags --abbrev=0 2>/dev/null || echo "v1.0.0")-$(shell git rev-parse --short HEAD)
 # Application name and registry configuration
 APP := $(shell basename $(shell git remote get-url origin))
+VERSION := $(shell git describe --tags --abbrev=0 2>/dev/null || echo "v1.0.0")-$(shell git rev-parse --short HEAD)
 
 # Build configuration
 TARGETOS ?= linux
