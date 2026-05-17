@@ -1,12 +1,18 @@
+REGISTRY ?= ghcr.io
+USERNAME ?= kylib4444
+VERSION := $(shell git describe --tags --abbrev=0 2>/dev/null || echo "v1.0.0")-$(shell git rev-parse --short HEAD)
 # Application name and registry configuration
 APP := $(shell basename $(shell git remote get-url origin))
-REGISTRY := kylib4444
-VERSION := $(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
 
 # Build configuration
 TARGETOS ?= linux
 TARGETARCH ?= arm64
 CGO_ENABLED ?= 0
+
+# Full image tag
+# v1.0.0-106879e-linux-amd64
+FULL_TAG := $(VERSION)-$(TARGETOS)-$(TARGETARCH)
+IMAGE := $(REGISTRY)/$(USERNAME)/$(APP):$(FULL_TAG)
 
 # Validate environment variables
 ifeq ($(TARGETOS),)
@@ -79,21 +85,21 @@ build: format get
 
 # Build Docker image
 image:
-	@echo "Building Docker image..."
-	@docker build . -t $(REGISTRY)/$(APP):$(VERSION)-$(TARGETARCH) \
+	@echo "Building Docker image for $(TARGETARCH)..."
+	 docker build . -t $(IMAGE) \
 		--build-arg TARGETARCH=$(TARGETARCH) \
 		--build-arg VERSION=$(VERSION)
 
 # Push Docker image
 push:
 	@echo "Pushing Docker image..."
-	@docker push $(REGISTRY)/$(APP):$(VERSION)-$(TARGETARCH)
+	 docker push $(IMAGE)
 
 # Clean build artifacts
 clean:
 	@echo "Cleaning build artifacts..."
 	@rm -rf kbot
-	@docker rmi $(REGISTRY)/$(APP):$(VERSION)-$(TARGETARCH) || true
+	@docker rmi $(IMAGE) || true
 
 # Release target
 release: clean test build image push
